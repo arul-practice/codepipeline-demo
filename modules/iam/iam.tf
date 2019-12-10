@@ -46,10 +46,7 @@ data "aws_iam_policy_document" "codepipeline_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:iam::${var.aws_account}:role/${var.name_prefix}-${var.name_suffix}-${var.environment}-role",
-      "arn:aws:iam::${var.aws_account}:role/${var.name_prefix}_iam_hello",
-      "arn:aws:iam::${var.aws_account}:role/${var.name_prefix}_iam_test",
-      "arn:aws:iam::${var.aws_account}:role/${var.name_prefix}_iam_message"
+      "*"
     ]
   }
 
@@ -67,8 +64,7 @@ data "aws_iam_policy_document" "codepipeline_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:iam::${var.aws_account}:role/${var.name_prefix}-${var.name_suffix}-${var.environment}-role",
-      "arn:aws:iam::${var.aws_account}:policy/codepipeline_policy"
+      "*"
     ]
   }
 
@@ -111,7 +107,7 @@ data "aws_iam_policy_document" "codepipeline_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:sns:${var.aws_region}:${var.aws_account}:${var.name_prefix}_${var.name_suffix}_${var.environment}_pipeline-updates-topic"
+      "*"
     ]
   }
 
@@ -123,9 +119,7 @@ data "aws_iam_policy_document" "codepipeline_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:${var.name_prefix}_${var.name_suffix}_${var.environment}_hello",
-      "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:${var.name_prefix}_${var.name_suffix}_${var.environment}_message",
-      "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:${var.name_prefix}_${var.name_suffix}_${var.environment}_test"
+      "*"
     ]
   }
 
@@ -157,8 +151,7 @@ data "aws_iam_policy_document" "codepipeline_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:codebuild:${var.aws_region}:${var.aws_account}:project/${var.name_prefix}-${var.name_suffix}-${var.environment}-plan-project",
-      "arn:aws:codebuild:${var.aws_region}:${var.aws_account}:project/${var.name_prefix}-${var.name_suffix}-${var.environment}-apply-project",
+      "*"
     ]
   }
 
@@ -170,12 +163,11 @@ data "aws_iam_policy_document" "codepipeline_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:codepipeline:${var.aws_region}:${var.aws_account}:${var.name_prefix}-${var.name_suffix}-${var.environment}-pipeline",
-      "arn:aws:codepipeline:${var.aws_region}:${var.aws_account}:${var.name_prefix}-${var.name_suffix}-${var.environment}-pipeline/*"
+      "*"
     ]
   }
 }
-/*
+
 resource "aws_iam_policy" "codepipeline_policy" {
   name = "codepipeline_policy"
   policy = "${data.aws_iam_policy_document.codepipeline_policy_doc.json}"
@@ -185,7 +177,7 @@ resource "aws_iam_role_policy_attachment" "codepipeline_attach" {
   role = "${aws_iam_role.codepipeline_role.name}"
   policy_arn = "${aws_iam_policy.codepipeline_policy.arn}"
 }
-*/
+
 output "role_arn" {
   value = "${aws_iam_role.codepipeline_role.arn}"
 }

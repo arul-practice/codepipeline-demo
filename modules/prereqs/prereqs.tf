@@ -1,7 +1,7 @@
 /* Create Bucket for Terraform Lambda Modules */
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "iot-portal-prd-bucket"
+  bucket = "${var.name_prefix}-${var.name_suffix}-codepipeline-bucket"
   acl    = "private"
 
   /* This bucket MUST have versioning enabled and encryption */

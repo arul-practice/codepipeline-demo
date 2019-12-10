@@ -27,3 +27,6 @@ variable "subscriptions" {
   type        = list(string)
 }
 
+variable "profile" {
+  type = string
+}
