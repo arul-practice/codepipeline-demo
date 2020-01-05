@@ -1,7 +1,10 @@
+/*
 provider "aws" {
   profile = "${var.profile}"
   region  = var.aws_region
 }
+*/
+
 
 locals {
   env = "${terraform.workspace == "default" ? "PRD" : upper(element(split("-",terraform.workspace),0)) }"
@@ -24,6 +27,12 @@ locals {
     "terraform-project" = "iotaccount"
   }
 } 
+
+data "aws_caller_identity" "current" {
+}
+
+data "aws_region" "current" {
+}
 
 
 module "prereqs" {
